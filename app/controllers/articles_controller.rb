@@ -12,13 +12,19 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(title: "...", body: "...")
+    @article = Article.new(article_route_parameters)
 
     if @article.save
       redirect_to @article
     else
       render :new
     end
+  end
+
+  private
+
+  def article_route_parameters
+    params.require(:article).permit(:title,:body)
   end
 end
 
